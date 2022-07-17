@@ -20,10 +20,14 @@ function SalesCard() {
     /*Permitindo que o front end solicite dados do back end, através do comando "useEffect", o qual
     deveremos passar uma função e uma lista como parâmetros do método*/
     useEffect(() => {
-        axios.get(` ${BASE_URL}/sales`).then(response => {
+        
+        const dmin = minDate.toISOString().slice(0, 10);
+        const dmax = maxDate.toISOString().slice(0, 10);
+        
+        axios.get(` ${BASE_URL}/sales?minDate=${dmin}&maxDate=${dmax}`).then(response => {
             setSales(response.data.content);
         })
-    }, []);
+    }, [minDate, maxDate]);
 
     return (
         <>
